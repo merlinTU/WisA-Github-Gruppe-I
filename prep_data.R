@@ -1,0 +1,48 @@
+# Daten laden und als titanic speichern
+titanic <- read.csv("~/Downloads/titanic.csv")
+
+# Anreden
+  
+  #Anrede extrahieren
+  titanic$Title <- sub(".*, (.*?)\\..*", "\\1", titanic$Name)
+  
+  
+  # gleiche Anreden durch ein Wort ersetzten
+  titanic$Title <- gsub("Mlle|Ms|Miss", "Miss", titanic$Title)
+  titanic$Title <- gsub("Mme", "Mrs", titanic$Title)
+  titanic$Title <- gsub("Master", "Master", titanic$Title)
+
+  
+table(titanic$Title)
+# hat tatsächlich noch komische Einträge, Don: spanischer Ehrentitel, Jonkheer: niederländischer Adelstitel, Rev: irgendwas mit Kirche, Col: Colonel also Militär
+  
+
+# Survived, Sex, Embarked und Pclass in Faktoren umwandeln
+
+titanic$Survived <- factor(titanic$Survived, levels = c(0, 1), labels = c("No", "Yes"))
+str(titanic$Survived)
+
+titanic$Sex <- factor(titanic$Sex)
+str(titanic$Sex)
+
+titanic$Embarked <- factor(titanic$Embarked, levels = c("C", "Q", "S"))
+str(titanic$Embarked)
+
+titanic$Pclass <- factor(titanic$Pclass, levels = c(1, 2, 3), labels = c(3, 2, 1), ordered = TRUE)
+str(titanic$Pclass)
+
+# Fehlende Altersangaben extrapolieren
+
+
+# Daten aus Cabin extrahieren
+
+
+
+# Entferne die Spalten "PassengerID", "Name", "Ticket" und "Cabin" aus dem Datensatz
+# (erst zum Schluss)
+#titanic <- titanic[, !(names(titanic) %in% c("PassengerID", "Name", "Ticket", "Cabin"))]
+
+# Datensatz speichern
+
+write.csv(titanic, "~/Downloads/titanic_prep.csv", row.names = FALSE)
+
