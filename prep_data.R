@@ -58,7 +58,7 @@ for(i in 1:nrow(titanic)){
 
 # Entferne die Spalten "PassengerID", "Name", "Ticket" und "Cabin" aus dem Datensatz
 # (erst zum Schluss)
-#titanic <- titanic[, !(names(titanic) %in% c("PassengerID", "Name", "Ticket", "Cabin"))]
+titanic <- titanic[, !(names(titanic) %in% c("PassengerID", "Name", "Ticket", "Cabin"))]
 
 # Datensatz speichern
 
