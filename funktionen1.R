@@ -57,3 +57,27 @@ deskr_factor <- function(x) {
   return(statistic)
 }
 
+#weiß nicht ob die nötig ist, gibt ja schon prop.table, also falls wer ne bessere hat gerne einfügen
+# Eine Funktion, die geeignete deskriptive bivariate Statistiken für den Zusammenhang zwischen zwei kategorialen Variablen berechnet ausgibt
+# tabelle mit Anteilen zutückgeben
+bivariat_kategorial <- function(var1, var2) {
+  tabelle <- table(var1, var2)
+  
+  prop_tabelle <- prop.table(tabelle, margin = 1)
+  return(prop_tabelle)
+}
+
+
+# Eine Funktion, die geeignete deskriptive bivariate Statistiken für den Zusammengang zwischen einer metrischen und einer dichotomen Variablen berechnet und ausgibt
+
+
+
+
+
+#Eine Funktion, die eine geeignete Visualisierung von drei oder vier kategorialen Variablen erstellt
+
+
+
+
+
+# Freiwillig: weitere zur Deskription und Visualisierung geeignete Funktionen
