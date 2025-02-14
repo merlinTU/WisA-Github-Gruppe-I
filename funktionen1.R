@@ -70,6 +70,45 @@ bivariat_kategorial <- function(var1, var2) {
 
 # Eine Funktion, die geeignete deskriptive bivariate Statistiken für den Zusammengang zwischen einer metrischen und einer dichotomen Variablen berechnet und ausgibt
 
+bivariate_statistik <- function(data, metrische_var, dichotome_var) {
+
+  # zum sicherstellen dass die zweite Variable dichotom ist:
+  unique_values <- unique(data[[dichotome_var]])
+  if (length(unique_values) != 2) {
+    stop("Die zweite Variable muss dichotom sein.")
+  }
+  
+  # Deskriptive Statistiken Tabelle
+  stats <- data %>%
+    group_by(!!as.name(dichotome_var)) %>%
+    summarise(
+      Mean = mean(.data[[metrische_var]], na.rm = TRUE),
+      Median = median(.data[[metrische_var]], na.rm = TRUE),
+      SD = sd(.data[[metrische_var]], na.rm = TRUE),
+      Count = n()
+    )
+  
+  print(paste("Deskriptive bivariate Statistik für:", metrische_var, "und", dichotome_var))
+  print(stats)
+  
+  # Unterschied der Mittelwerte
+  mittelwert_gruppen <- stats$Mean
+  differenz_mittelwerte <- diff(mittelwert_gruppen)
+  
+  print(paste("Unterschied der Mittelwerte:", round(differenz_mittelwerte, 2)))
+  
+  # Berechnung Cohen's d
+  gruppe_1 <- data[data[[dichotome_var]] == unique_values[1], ][[metrische_var]]
+  gruppe_2 <- data[data[[dichotome_var]] == unique_values[2], ][[metrische_var]]
+  
+  pooled_sd <- sqrt((var(gruppe_1, na.rm = TRUE) + var(gruppe_2, na.rm = TRUE)) / 2)
+  
+  cohens_d <- differenz_mittelwerte / pooled_sd
+  
+  print(paste("Cohen's d (Effektstärke):", round(cohens_d, 2)))
+}
+
+# Wenn ihr noch Ideen für andere Maße habt, die für diese Teilaufgabe relevant sein könnten, sagt gerne Bescheid, ich bin mir nicht ganz sicher ob ich alles abgedeckt habe
 
 
 
