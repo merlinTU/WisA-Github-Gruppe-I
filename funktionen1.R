@@ -115,6 +115,36 @@ bivariate_statistik <- function(data, metrische_var, dichotome_var) {
 
 #Eine Funktion, die eine geeignete Visualisierung von drei oder vier kategorialen Variablen erstellt
 
+visualize_categorical <- function(data, var1, var2, var3, var4 = NULL) {
+  if (is.null(var4)) {
+    # Kontingenztabelle für drei Variablen
+    contingency_table <- table(data[[var1]], data[[var2]], data[[var3]])
+    
+    # Mosaikplot für drei Variablen
+    mosaicplot(contingency_table, 
+               main = paste("Visualisierung von", var1, "nach", var2, "und", var3),
+               xlab = var1,  
+               ylab = paste(var2, "und", var3),
+               color = c("red", "blue", "green"),
+               las = 1,  
+               cex.axis = 0.8, 
+               border = "gray")
+  } else {
+    # Kontingenztabelle für vier Variablen
+    contingency_table <- table(data[[var1]], data[[var2]], data[[var3]], data[[var4]])
+    
+    # Mosaikplot für vier Variablen
+    mosaicplot(contingency_table, 
+               main = paste("Visualisierung von", var1, "nach", var2, var3, "und", var4),
+               xlab = var1,  
+               ylab = paste(var2, var3, "und", var4),
+               color = c("red", "blue", "green", "orange"),
+               las = 1,  
+               cex.axis = 0.8,
+               border = "gray")
+  }
+}
+
 
 
 
