@@ -25,16 +25,16 @@ deskr_metric <- function(x) {
 
 # deskr_factor: Funktion für deskriptive Statistiken für kategoriale Variablen
 # input: - x: kategorieller Vektor
-# output: - Liste asu Kennwerten fuer Kategorielle Daten
+# output: - Liste aus Kennwerten fuer Kategorielle Daten
 deskr_factor <- function(x) {
   if (!is.factor(x) && !is.character(x)) {
     stop("Die Variable muss kategorial (Faktor oder Charakter) sein.")
   }
   
-  # Häufigkeitstabelle
+  # Haeufigkeitstabelle
   freq_table <- table(x)
   
-  # Prozentsätze
+  # Prozentsaetze
   percentages <- prop.table(freq_table) * 100
   
   # Gleichverteilungstest
@@ -57,9 +57,9 @@ deskr_factor <- function(x) {
   return(statistic)
 }
 
-# weiß nicht ob die nötig ist, gibt ja schon prop.table, also falls wer ne bessere hat gerne einfügen
+# weiß nicht ob die noetig ist, gibt ja schon prop.table, also falls wer ne bessere hat gerne einfuegen
 # Eine Funktion, die geeignete deskriptive bivariate Statistiken für den Zusammenhang zwischen zwei kategorialen Variablen berechnet ausgibt
-# tabelle mit Anteilen zutückgeben
+# tabelle mit Anteilen zurueckgeben
 bivariat_kategorial <- function(var1, var2) {
   tabelle <- table(var1, var2)
   
