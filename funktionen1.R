@@ -57,14 +57,22 @@ deskr_factor <- function(x) {
   return(statistic)
 }
 
-#weiß nicht ob die nötig ist, gibt ja schon prop.table, also falls wer ne bessere hat gerne einfügen
+# weiß nicht ob die nötig ist, gibt ja schon prop.table, also falls wer ne bessere hat gerne einfügen
 # Eine Funktion, die geeignete deskriptive bivariate Statistiken für den Zusammenhang zwischen zwei kategorialen Variablen berechnet ausgibt
 # tabelle mit Anteilen zutückgeben
 bivariat_kategorial <- function(var1, var2) {
   tabelle <- table(var1, var2)
   
   prop_tabelle <- prop.table(tabelle, margin = 1)
-  return(prop_tabelle)
+  chi2 <- chisq.test(tabelle)
+  cramerV <- sqrt(chi2$statistic / (sum(tabelle)) * (min(nrow(tabelle))-1))
+  
+  return(list(
+  probs = prop_tabelle,
+  chi2 = unname(chi2$statistic),
+  p = chi2$p.value,
+  cramerV = cramerV
+))
 }
 
 
